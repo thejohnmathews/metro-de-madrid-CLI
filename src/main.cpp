@@ -3,6 +3,7 @@
 // include statements
 #include <bits/stdc++.h>
 #include <ncurses.h>
+#include "map/map.h"
 using namespace std;
 
 //cbreak();               // Disable line buffering
@@ -18,11 +19,11 @@ void welcomeWindow(){
     // make getch() non-blocking and clear the screen
     nodelay(stdscr, TRUE);
     clear();
+    WINDOW *welcomeWin = newwin(10, 50, 5, 5);
 
     while (1){
         
-        // create a new window and border box with text
-        WINDOW *welcomeWin = newwin(10, 50, 5, 5); // height, width, starty, startx
+        // create border and display welcome message
         box(welcomeWin, 0, 0);
         mvwprintw(welcomeWin, 2, 10, "Welcome to Metro de Madrid CLI!");
         mvwprintw(welcomeWin, 4, 10, "Press any key to continue...");
@@ -30,12 +31,11 @@ void welcomeWindow(){
         
         // await user input to start the CLI
         char ch = getch();
-        if (ch != ERR){ 
-            delwin(welcomeWin);
-            clear();
-            break;  
-        }
+        if (ch != ERR) break;
     }
+
+    delwin(welcomeWin);
+    clear();
 }
 
 // main function
@@ -52,9 +52,8 @@ int main(void) {
         refresh();
 
         int ch = getch();
-        if (ch == 'q' || ch == 'Q') {
-            break; 
-        }
+        if (ch == 'q' || ch == 'Q')  break;
+
     }
 
     END_NCURSES
