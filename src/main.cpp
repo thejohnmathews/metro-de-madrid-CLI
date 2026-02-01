@@ -5,27 +5,57 @@
 #include <ncurses.h>
 using namespace std;
 
-// global variables
+//cbreak();               // Disable line buffering
+//noecho();               // Don't echo user input
+//keypad(stdscr, TRUE);   // Enable function keys and arrow keys
+//curs_set(0); 
+
+#define START_NCURSES initscr();
+#define END_NCURSES getch(); endwin(); return 0;
+
+void welcomeWindow(){
+
+    // make getch() non-blocking and clear the screen
+    nodelay(stdscr, TRUE);
+    clear();
+
+    while (1){
+        
+        // create a new window and border box with text
+        WINDOW *welcomeWin = newwin(10, 50, 5, 5); // height, width, starty, startx
+        box(welcomeWin, 0, 0);
+        mvwprintw(welcomeWin, 2, 10, "Welcome to Metro de Madrid CLI!");
+        mvwprintw(welcomeWin, 4, 10, "Press any key to continue...");
+        wrefresh(welcomeWin);
+        
+        // await user input to start the CLI
+        char ch = getch();
+        if (ch != ERR){ 
+            delwin(welcomeWin);
+            clear();
+            break;  
+        }
+    }
+}
 
 // main function
 int main(void) {
-    initscr();
 
-    // creating a window h w y x
-    WINDOW *win = newwin(10, 50, 1,10);
-    refresh();
+    // initialize ncurses and display welcome window
+    START_NCURSES
+    welcomeWindow();
 
-    // making box border with default border styles
-    box(win, 0, 0);
+    // main loop
+    while (1){
 
-    // window y x string
-    mvwprintw(win, 0, 1, "Plano del Metro de Madrid");
-    mvwprintw(win, 1, 1, "Hello");
+        mvwprintw(stdscr, 0, 0, "Main. Press 'q' to quit.");
+        refresh();
 
-    // refreshing the window
-    wrefresh(win);
+        int ch = getch();
+        if (ch == 'q' || ch == 'Q') {
+            break; 
+        }
+    }
 
-    getch();
-    endwin();
-    return 0;
+    END_NCURSES
 }
