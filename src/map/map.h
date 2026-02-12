@@ -11,68 +11,68 @@
 const int CANVAS_HEIGHT = 80;
 const int CANVAS_WIDTH = 150;
 
+// station struct
+struct Station {
+    int x, y;
+    std::string name;
+    int line;
+};
+
+// Going to make a generic map class in case I want to add more cities in the future.
 class Map {
 
     private:
 
-        string name;
-        string country;
-        char numLines;
-        char numStations;
+        std::string cityName;
+        std::string country;
+        int numLines;
+        int numStations;
         char canvas[CANVAS_HEIGHT][CANVAS_WIDTH];
         int colorMap[CANVAS_HEIGHT][CANVAS_WIDTH];
 
     public:
 
         // constructors (default/parameterized) & destructor
-        Map () : name (""), country (""), numLines (0), numStations (0) {;}
-        Map (string n, string c, char l, char stations) : name(n), country(c), numLines(l), numStations(stations) {;}
+        Map () : cityName (""), country (""), numLines (0), numStations (0) {;}
+        Map (std::string n, std::string c, int l, int stations) : cityName(n), country(c), numLines(l), numStations(stations) {;}
         ~Map () {;}
 
-        // getters 
-        string getName() const return name; 
-        string getCountry() const return country;
-        char getNumLines() const return numLines;
-        char getNumStations() const return numStations;
+        // getters
+        std::string getCityName() const { return cityName; }
+        std::string getCountry() const { return country; }
+        int getNumLines() const { return numLines; }
+        int getNumStations() const { return numStations; }
 
         // setters
-        void setName(string n) name = n;
-        void setCountry(string c) country = c;
-        void setNumLines(char l) numLines = l;
-        void setNumStations(char s) numStations = s;
-
+        void setCityName(std::string n) { cityName = n; }
+        void setCountry(std::string c) { country = c; }
+        void setNumLines(int l) { numLines = l; }
+        void setNumStations(int s) { numStations = s; }
 };
 
 class Madrid: public Map {
 
     private:
 
-        std::vector<Station> stations;
-    
+        std::vector<Station> stationNames;
+
     public:
 
         // constructors (default/parameterized) & destructor
         Madrid () : Map ("Metro de Madrid", "Spain", 13, 302) {;}
-        Madrid (std::vector<Station> s) : Map ("Metro de Madrid", "Spain", 13, 302), stations(s) {;}
+        Madrid (std::vector<Station> s) : Map ("Metro de Madrid", "Spain", 13, 302), stationNames(s) {;}
         ~Madrid () {;}
 
-        // getters 
-        std::vector<Station> getStations() const return stations; 
+        // getters
+        std::vector<Station> getStationNames() const { return stationNames; }
 
         // setters
-        void setStations(std::vector<Station> s) stations = s;
-}
-
-// create canvas for drawing map
-char canvas[CANVAS_HEIGHT][CANVAS_WIDTH];
-int colorMap[CANVAS_HEIGHT][CANVAS_WIDTH];
-
-// create station structure
-struct Station {
-    int x, y;
-    std::string name;
-    int line;
+        void setStationNames(std::vector<Station> s) { stationNames = s; }
 };
+
+// create canvas for drawing map (extern declarations - defined in map.cpp)
+extern char canvas[CANVAS_HEIGHT][CANVAS_WIDTH];
+extern int colorMap[CANVAS_HEIGHT][CANVAS_WIDTH];
 
 // function prototypes
 void initCanvas(void);

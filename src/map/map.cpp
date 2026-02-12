@@ -3,6 +3,10 @@
 // include statements
 #include "map.h"
 
+// define gloval canvas and colormap
+char canvas[CANVAS_HEIGHT][CANVAS_WIDTH];
+int colorMap[CANVAS_HEIGHT][CANVAS_WIDTH];
+
 // Initialize the canvas with spaces
 void initCanvas() { 
 

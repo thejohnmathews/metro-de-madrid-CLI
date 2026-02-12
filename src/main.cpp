@@ -1,10 +1,11 @@
 // main.cpp - main file for metro-de-madrid-CLI application
 
 // include statements
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <vector>
 #include <ncurses.h>
 #include "map/map.h"
-using namespace std;
 
 //cbreak();               // Disable line buffering
 //noecho();               // Don't echo user input
